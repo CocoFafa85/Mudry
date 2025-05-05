@@ -10,7 +10,7 @@ public class Personnel {
 
 
 
-    // Constructeur par défaut (obligatoire pour Gson/Retrofit)
+    // Constructeur par défau (obligatoire pour Gson/Retrofit)
     public Personnel() {
     }
 
