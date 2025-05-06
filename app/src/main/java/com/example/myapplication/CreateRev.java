@@ -28,7 +28,7 @@ import retrofit2.Retrofit;
 
 public class CreateRev extends AppCompatActivity {
 
-    private ApiService apiService;
+    /*private ApiService apiService;
 
     public boolean onCreateOptionsMenu(Menu menu) {
 //        if (isLoggedIn) {//pas necessaire si changement d'activité
@@ -112,5 +112,5 @@ public class CreateRev extends AppCompatActivity {
                 }
             });
         });
-    }
+    }*/
 }

@@ -16,7 +16,10 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.gson.JsonObject;
+
 import Entites.Garagiste;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -77,17 +80,22 @@ public class MainActivity extends AppCompatActivity {
         ApiService apiService = retrofit.create(ApiService.class);
 
         Log.d("API", "identifiant: " + identifiant + " / MDP: " + mdp);
-
-        apiService.connexion(identifiant, mdp).enqueue(new Callback<Garagiste>() {
+        JsonObject json = new JsonObject();
+        json.addProperty("identifiant", identifiant);
+        json.addProperty("mdp", mdp);
+        RequestBody body = RequestBody.create(
+                json.toString(), okhttp3.MediaType.parse("application/json")
+        );
+        apiService.connexion(body).enqueue(new Callback<JsonObject>() {
             @Override
-            public void onResponse(Call<Garagiste> call, Response<Garagiste> response) {
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    Garagiste user = response.body();
+                    JsonObject data = response.body();
+                    Garagiste user = new Garagiste(data.getAsInt());
                     Toast.makeText(MainActivity.this, "Connexion réussie : " + user.getId_PERSONNEL(), Toast.LENGTH_SHORT).show();
 
                     // Redirection
                     Intent intent = new Intent(MainActivity.this, ListeRev.class);
-                    intent.putExtra("garagisteId", user.getId_PERSONNEL());
                     startActivity(intent);
                 } else {
                     Toast.makeText(MainActivity.this, "Identifiants incorrects", Toast.LENGTH_SHORT).show();
@@ -95,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Garagiste> call, Throwable t) {
+            public void onFailure(Call<JsonObject> call, Throwable t) {
                 Toast.makeText(MainActivity.this, "Erreur : " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

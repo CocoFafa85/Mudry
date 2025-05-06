@@ -1,9 +1,12 @@
 package com.example.myapplication;
 
+import com.google.gson.JsonObject;
+
 import java.util.List;
 
 import Entites.Revision;
 import Entites.Garagiste;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -23,7 +26,7 @@ public interface ApiService {
 
     @Headers({"Authorization: cle"})
     @POST("garagiste/auth.php")
-    Call<Garagiste> connexion(@Body String identifiant, @Body String mdp);
+    Call<JsonObject> connexion(@Body RequestBody body);
 
     @GET("garagiste/{identifiant}/{mdp}/")
     Call<Garagiste> connexionGaragiste(@Path("identifiant") String identifiant, @Path("mdp") String mdp);
