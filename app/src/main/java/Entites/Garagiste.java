@@ -19,6 +19,15 @@ public class Garagiste {
 
     public Garagiste(){}
 
+    public Garagiste(int Id_PERSONNEL){
+        this.Id_PERSONNEL = Id_PERSONNEL;
+    }
+
+    public Garagiste(String identidiant, String motdepasse){
+        this.identidiant = identidiant;
+        this.motdepasse = motdepasse;
+    }
+
     public Garagiste(int Id_PERSONNEL, String identidiant, String tel, String motdepasse) {
         this.Id_PERSONNEL = Id_PERSONNEL;
         this.identidiant = identidiant;

@@ -65,25 +65,20 @@ public class MainActivity extends AppCompatActivity {
         mdpConnexion = mdpInput.getText().toString();
 
         if (!identifiantConnexion.isEmpty() && !mdpConnexion.isEmpty()) {
-            fetchConnexion(/*identifiantConnexion, mdpConnexion*/);
+            fetchConnexion(identifiantConnexion, mdpConnexion);
         } else {
             Toast.makeText(this, "Veuillez remplir tous les champs", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void fetchConnexion(/*String identifiant, String mdp*/) {
-        EditText identifiantInput = findViewById(R.id.identifiantInputConnexion);
-        EditText mdpInput = findViewById(R.id.mdpInputConnexion);
-
-        String identifiant = identifiantInput.getText().toString().trim();
-        String mdp = mdpInput.getText().toString().trim();
+    private void fetchConnexion(String identifiant, String mdp) {
 
         Retrofit retrofit = RetrofitClient.getInstance();
         ApiService apiService = retrofit.create(ApiService.class);
 
         Log.d("API", "identifiant: " + identifiant + " / MDP: " + mdp);
 
-        apiService.connexionGaragiste(identifiant, mdp).enqueue(new Callback<Garagiste>() {
+        apiService.connexion(identifiant, mdp).enqueue(new Callback<Garagiste>() {
             @Override
             public void onResponse(Call<Garagiste> call, Response<Garagiste> response) {
                 if (response.isSuccessful() && response.body() != null) {

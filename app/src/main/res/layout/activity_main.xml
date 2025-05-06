@@ -38,7 +38,7 @@
         android:layout_height="48dp"
         android:background="#D7D7D7"
         android:ems="10"
-        android:inputType="textIdentifiant"
+        android:inputType="text"
         app:layout_constraintTop_toBottomOf="@id/identifiantConnexion"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -7,6 +7,7 @@ import Entites.Garagiste;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
@@ -20,6 +21,9 @@ public interface ApiService {
     @POST("ajoutrevision/")
     Call<Void> addRevision(@Body Garagiste revision);
 
+    @Headers({"Authorization: cle"})
+    @POST("garagiste/auth.php")
+    Call<Garagiste> connexion(@Body String identifiant, @Body String mdp);
 
     @GET("garagiste/{identifiant}/{mdp}/")
     Call<Garagiste> connexionGaragiste(@Path("identifiant") String identifiant, @Path("mdp") String mdp);
