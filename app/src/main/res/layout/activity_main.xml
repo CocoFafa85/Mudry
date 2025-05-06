@@ -18,14 +18,14 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/emailConnexion" />
+        app:layout_constraintBottom_toTopOf="@+id/identifiantConnexion" />
 
-    <!-- Email -->
+    <!-- identifiant -->
     <TextView
-        android:id="@+id/emailConnexion"
+        android:id="@+id/identifiantConnexion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Email"
+        android:text="Identifiant"
         android:textSize="18sp"
         app:layout_constraintTop_toBottomOf="@id/titreConnexion"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,13 +33,13 @@
         android:layout_marginStart="16dp"/>
 
     <EditText
-        android:id="@+id/emailInputConnexion"
+        android:id="@+id/identifiantInputConnexion"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:background="#D7D7D7"
         android:ems="10"
-        android:inputType="textEmailAddress"
-        app:layout_constraintTop_toBottomOf="@id/emailConnexion"
+        android:inputType="textIdentifiant"
+        app:layout_constraintTop_toBottomOf="@id/identifiantConnexion"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginHorizontal="16dp"
@@ -52,7 +52,7 @@
         android:layout_height="wrap_content"
         android:text="Mot de Passe"
         android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@id/emailInputConnexion"
+        app:layout_constraintTop_toBottomOf="@id/identifiantInputConnexion"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"/>

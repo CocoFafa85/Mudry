@@ -19,7 +19,7 @@ $method = $_SERVER['REQUEST_METHOD'];
 
 switch ($method) {
     case 'GET':
-        if (isset($_GET['emailC']) && isset($_GET['mdpC'])){ //empty
+        if (isset($_GET['identifiantC']) && isset($_GET['mdpC'])){ //empty
             getPostulant($_GET['idenfiantC'], $_GET['mdpC']);
         } else {
         // if (isset($_GET['id'])) {
@@ -69,7 +69,7 @@ function getPostulants() {
 *@parametre : $id, l'id du 
 *@return : json
 */
-function getPostulant(/*$id*/$email, $mdpC) {
+function getPostulant(/*$id*/$identifiant, $mdpC) {
     // global $pdo;
     // $stmt = $pdo->prepare("SELECT * FROM Postulant WHERE id = ?");
     // $stmt->execute([$id]);
@@ -78,8 +78,8 @@ function getPostulant(/*$id*/$email, $mdpC) {
     global $pdo;
     $motDePasseSaisi = $mdpC;
 
-    $hashEnregistre = $pdo->prepare("SELECT mdp_utilisateur FROM Utilisateur WHERE email = ? LIMIT 1");
-    $hashEnregistre->execute([$email])->fetch(PDO::FETCH_ASSOC);
+    $hashEnregistre = $pdo->prepare("SELECT mdp_utilisateur FROM Utilisateur WHERE identifiant = ? LIMIT 1");
+    $hashEnregistre->execute([$identifiant])->fetch(PDO::FETCH_ASSOC);
     $hashEnregistre = $row['mdp_utilisateur']; // Le hash stocké en BDD
 
     if (password_verify($motDePasseSaisi, $hashEnregistre)) {
@@ -88,8 +88,8 @@ function getPostulant(/*$id*/$email, $mdpC) {
         echo "Mot de passe incorrect.";
     }
 
-    $stmt = $pdo->prepare("SELECT id FROM Utilisateur WHERE email = ? AND mdp_utilisateur = ? LIMIT 1");
-    $stmt->execute([$email, $mdpC]);
+    $stmt = $pdo->prepare("SELECT id FROM Utilisateur WHERE identifiant = ? AND mdp_utilisateur = ? LIMIT 1");
+    $stmt->execute([$identifiant, $mdpC]);
     if ($stmt->rowCount() > 0) {
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         $id = $row['id'];
@@ -111,12 +111,12 @@ function getPostulant(/*$id*/$email, $mdpC) {
 function addPostulant() {
     global $pdo;
     $data = json_decode(file_get_contents("php://input"), true);
-    if (!isset(/*$data['nom_utilisateur'], $data['mdp_utilisateur'], $data['email'], $data['telephone'], */$data['prenom'], $data['date_naissance'])) {
+    if (!isset(/*$data['nom_utilisateur'], $data['mdp_utilisateur'], $data['identifiant'], $data['telephone'], */$data['prenom'], $data['date_naissance'])) {
         echo json_encode(["message" => "Données invalides"]);
         return;
     }
-    // $stmt = $pdo->prepare("INSERT INTO utilisateur (nom_utilisateur, mdp_utilisateur, email, telephone) VALUES (?, ?, ?, ?)");
-    // $stmt->execute([$data['nom_utilisateur'], $data['mdp_utilisateur'], $data['email'], $data['telephone'] ?? null]);
+    // $stmt = $pdo->prepare("INSERT INTO utilisateur (nom_utilisateur, mdp_utilisateur, identifiant, telephone) VALUES (?, ?, ?, ?)");
+    // $stmt->execute([$data['nom_utilisateur'], $data['mdp_utilisateur'], $data['identifiant'], $data['telephone'] ?? null]);
     $stmt = $pdo->prepare("INSERT INTO postulant (prenom, date_naissance) VALUES (?, ?)");
     $stmt->execute([$data['prenom'], $data['date_naissance'] ?? null]);
     echo json_encode(["message" => "Postulant ajouté"]);

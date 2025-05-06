@@ -80,7 +80,7 @@ function getUtilisateur($id) {
 function addUtilisateur() {
     global $pdo;
     $data = json_decode(file_get_contents("php://input"), true);
-    if (!isset($data['nom_utilisateur'], $data['mdp_utilisateur'], $data['email'], $data['telephone'])) {
+    if (!isset($data['nom_utilisateur'], $data['mdp_utilisateur'], $data['identifiant'], $data['telephone'])) {
         echo json_encode(["message" => "Données invalides"]);
         return;
     }
@@ -89,8 +89,8 @@ function addUtilisateur() {
     $hash = password_hash($mdp, PASSWORD_DEFAULT);
     echo $hash;
 
-    $stmt = $pdo->prepare("INSERT INTO utilisateur (nom_utilisateur, mdp_utilisateur, email, telephone) VALUES (?, ?, ?, ?)");
-    $stmt->execute([$data['nom_utilisateur'], $hash, $data['email'], $data['telephone'] ?? null]);
+    $stmt = $pdo->prepare("INSERT INTO utilisateur (nom_utilisateur, mdp_utilisateur, identifiant, telephone) VALUES (?, ?, ?, ?)");
+    $stmt->execute([$data['nom_utilisateur'], $hash, $data['identifiant'], $data['telephone'] ?? null]);
     echo json_encode(["message" => "Utilisateur ajouté"]);
 }
 /*
@@ -101,12 +101,12 @@ function addUtilisateur() {
 function updateUtilisateur($data) {
     global $pdo;
     $data = json_decode(file_get_contents("php://input"), true);
-    if (!isset($data['nom_utilisateur'], $data['mdp_utilisateur'], $data['email'], $data['telephone'])) {
+    if (!isset($data['nom_utilisateur'], $data['mdp_utilisateur'], $data['identifiant'], $data['telephone'])) {
         echo json_encode(["message" => "Données invalides"]);
         return;
     }
-    $stmt = $pdo->prepare("UPDATE utilisateur SET nom_utilisateur=?, mdp_utilisateur=?, email=?, telephone=? WHERE id=?");
-    $stmt->execute([$data['nom_utilisateur'], $data['mdp_utilisateur'], $data['email'], $data['telephone'] ?? null, $data['id']]);
+    $stmt = $pdo->prepare("UPDATE utilisateur SET nom_utilisateur=?, mdp_utilisateur=?, identifiant=?, telephone=? WHERE id=?");
+    $stmt->execute([$data['nom_utilisateur'], $data['mdp_utilisateur'], $data['identifiant'], $data['telephone'] ?? null, $data['id']]);
     echo json_encode(["message" => "Utilisateur mis à jour"]);
 }
 /*

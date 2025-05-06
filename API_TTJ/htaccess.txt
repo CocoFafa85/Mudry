@@ -10,7 +10,7 @@ RewriteRule ^emplois/list/$  apiEmploi.php?$method=GET [nc,qsa]
 RewriteRule ^postulants/list/$  apiPostulant.php?$method=GET [nc,qsa]
 
 RewriteRule ^utilisateur/([0-9]+)/$   apiUtilisateur.php?$method=GET&id=$1 [nc,qsa]
-RewriteRule ^connexion/([^/]+)/([^/]+)/$  apiPostulant.php?$method=GET&email=$1&mdp=$2 [nc,qsa]
+RewriteRule ^connexion/([^/]+)/([^/]+)/$  apiPostulant.php?$method=GET&identifiant=$1&mdp=$2 [nc,qsa]
 RewriteRule ^emploi/([0-9]+)/$   apiEmploi.php?$method=GET&id=$1 [nc,qsa]
 RewriteRule ^postuler/([0-9]+)/([0-1])/$  apiPostuler.php?$method=GET&id=$1&admis=$2 [nc,qsa]
 

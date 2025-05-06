@@ -21,8 +21,8 @@ public interface ApiService {
     Call<Void> addRevision(@Body Garagiste revision);
 
 
-    @GET("garagiste/{email}/{mdp}/")
-    Call<Garagiste> connexionGaragiste(@Path("email") String email, @Path("mdp") String mdp);
+    @GET("garagiste/{identifiant}/{mdp}/")
+    Call<Garagiste> connexionGaragiste(@Path("identifiant") String identifiant, @Path("mdp") String mdp);
 
     @GET("garagiste/{id}/")
     Call<Revision> getGaragiste(@Path("id") int idGaragiste);

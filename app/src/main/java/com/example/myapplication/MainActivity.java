@@ -23,7 +23,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class MainActivity extends AppCompatActivity {
-    String emailConnexion;
+    String identifiantConnexion;
     String mdpConnexion;
 //    private boolean isLoggedIn = true;//false;//pas necessaire si changement d'activité
 
@@ -58,41 +58,41 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickValider(View view) {
         // Ajoute ici l’action à exécuter lors du clic
-        EditText emailInput = findViewById(R.id.emailInputConnexion);
+        EditText identifiantInput = findViewById(R.id.identifiantInputConnexion);
         EditText mdpInput = findViewById(R.id.mdpInputConnexion);
 
-        emailConnexion = emailInput.getText().toString();
+        identifiantConnexion = identifiantInput.getText().toString();
         mdpConnexion = mdpInput.getText().toString();
 
-        if (!emailConnexion.isEmpty() && !mdpConnexion.isEmpty()) {
-            fetchConnexion(/*emailConnexion, mdpConnexion*/);
+        if (!identifiantConnexion.isEmpty() && !mdpConnexion.isEmpty()) {
+            fetchConnexion(/*identifiantConnexion, mdpConnexion*/);
         } else {
             Toast.makeText(this, "Veuillez remplir tous les champs", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void fetchConnexion(/*String email, String mdp*/) {
-        EditText emailInput = findViewById(R.id.emailInputConnexion);
+    private void fetchConnexion(/*String identifiant, String mdp*/) {
+        EditText identifiantInput = findViewById(R.id.identifiantInputConnexion);
         EditText mdpInput = findViewById(R.id.mdpInputConnexion);
 
-        String email = emailInput.getText().toString().trim();
+        String identifiant = identifiantInput.getText().toString().trim();
         String mdp = mdpInput.getText().toString().trim();
 
         Retrofit retrofit = RetrofitClient.getInstance();
         ApiService apiService = retrofit.create(ApiService.class);
 
-        Log.d("API", "Email: " + email + " / MDP: " + mdp);
+        Log.d("API", "identifiant: " + identifiant + " / MDP: " + mdp);
 
-        apiService.connexionGaragiste(email, mdp).enqueue(new Callback<Garagiste>() {
+        apiService.connexionGaragiste(identifiant, mdp).enqueue(new Callback<Garagiste>() {
             @Override
             public void onResponse(Call<Garagiste> call, Response<Garagiste> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     Garagiste user = response.body();
-                    Toast.makeText(MainActivity.this, "Connexion réussie : " + user.getId(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Connexion réussie : " + user.getId_PERSONNEL(), Toast.LENGTH_SHORT).show();
 
                     // Redirection
                     Intent intent = new Intent(MainActivity.this, ListeRev.class);
-                    intent.putExtra("garagisteId", user.getId());
+                    intent.putExtra("garagisteId", user.getId_PERSONNEL());
                     startActivity(intent);
                 } else {
                     Toast.makeText(MainActivity.this, "Identifiants incorrects", Toast.LENGTH_SHORT).show();

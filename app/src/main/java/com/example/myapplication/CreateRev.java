@@ -79,6 +79,11 @@ public class CreateRev extends AppCompatActivity {
             String editDateRStr = editDateR.getText().toString();
             EditText editLibelle = findViewById(R.id.libelleInput);
             String libelle = editLibelle.getText().toString();
+            EditText editIdentifiant = findViewById(R.id.identifiantInput);
+            String identifiant = editIdentifiant.getText().toString();
+            EditText editAvion = findViewById(R.id.avionInput);
+            String avion = editAvion.getText().toString();
+
 
             Date dateR = null;
             try {
@@ -88,7 +93,7 @@ public class CreateRev extends AppCompatActivity {
                 return;
             }
 
-            Revision revision = new Revision(dateR, libelle);
+            Revision revision = new Revision(dateR, libelle, Id_PERSONNEL, id_MODELE, id_AVION);
             apiService.createRevision(revision).enqueue(new Callback<Void>() {
 
                 @Override

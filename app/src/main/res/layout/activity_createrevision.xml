@@ -12,7 +12,7 @@
         android:id="@+id/titreCreateR"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="INSCRIPTION"
+        android:text="Ajout d'une révision"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"
@@ -68,6 +68,30 @@
         android:layout_marginHorizontal="16dp"
         android:hint="Ici description de la révision..."/>
 
+    <!-- avion -->
+    <TextView
+        android:id="@+id/avion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="avion"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"/>
+
+    <EditText
+        android:id="@+id/avionInput"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:background="#D7D7D7"
+        android:ems="10"
+        android:inputType="text"
+        app:layout_constraintTop_toBottomOf="@id/avion"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginHorizontal="16dp"
+        android:hint="code avion"/>
+
     <!-- Garagiste -->
     <TextView
         android:id="@+id/garagiste"
@@ -80,7 +104,7 @@
         android:layout_marginStart="16dp"/>
 
     <EditText
-        android:id="@+id/garagisteInput"
+        android:id="@+id/identifiantInput"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:ems="10"
@@ -89,7 +113,8 @@
         app:layout_constraintTop_toBottomOf="@id/garagiste"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginHorizontal="16dp"/>
+        android:layout_marginHorizontal="16dp"
+        android:hint="identidiant"/>
 
     <!-- Bouton Valider -->
     <Button

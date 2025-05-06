@@ -52,7 +52,7 @@ function getGaragistes() {
 *@parametre : $id, l'id du 
 *@return : json
 */
-function getGaragiste(/*$id*/$email, $motdepasse) {
+function getGaragiste(/*$id*/$identifiant, $motdepasse) {
     // global $pdo;
     // $stmt = $pdo->prepare("SELECT * FROM Garagiste WHERE id = ?");
     // $stmt->execute([$id]);
