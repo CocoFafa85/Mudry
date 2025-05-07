@@ -15,8 +15,9 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface ApiService {
-    @GET("revisions/")
-    Call<List<Revision>> getRevisions();
+    @Headers({"Authorization: cle"})
+    @GET("revisions/lire.php")
+    Call<List<JsonObject>> getRevisions();
 
     @GET("revision/{id}/")
     Call<Revision> getRevision(@Path("id") int idRevision);

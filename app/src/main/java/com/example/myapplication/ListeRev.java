@@ -1,5 +1,7 @@
 package com.example.myapplication;
 
+import static java.lang.Integer.parseInt;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -16,8 +18,15 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.JsonObject;
+
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import Entites.Garagiste;
+import Entites.Revision;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -72,12 +81,45 @@ public class ListeRev extends AppCompatActivity {
             return insets;
         });
 
-        garagisteId = getIntent().getIntExtra("garagisteId", -1);
-
+        garagisteId = getIntent().getIntExtra("user", -1);
+        Toast.makeText(this, "ID Garagiste : " + garagisteId, Toast.LENGTH_SHORT).show();
         recyclerView = findViewById(R.id.rv_liste);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         searchView = findViewById(R.id.searchView);
+        Retrofit retrofit = RetrofitClient.getInstance();
+        ApiService apiService = retrofit.create(ApiService.class);
+        JsonObject json = new JsonObject();
+        RequestBody body = RequestBody.create(
+                json.toString(), okhttp3.MediaType.parse("application/json")
+        );
+        apiService.connexion(body).enqueue(new Callback<List<JsonObject>>() {
+            @Override
+            public void onResponse(Call<List<JsonObject>> call, Response<List<JsonObject>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    List<JsonObject> data = response.body();
+                    List<Revision> revisions = new ArrayList<>();
+                    for (JsonObject obj : data) {
+                        revisions.add(new Revision(obj.get("id_REVISION").getAsInt(), new Date(obj.get("date").getAsString()), obj.get("libelle").getAsString(), obj.get("id_PERSONNEL").getAsInt(), obj.get("id_MODELE").getAsInt(), obj.get("id_AVION").getAsInt()));
+                        Toast.makeText(ListeRev.this, "Connexion réussie : " + revisions.getLast().getLibelle(), Toast.LENGTH_SHORT).show();
+                    }
+
+                    //Toast.makeText(ListeRev.this, "Connexion réussie : " + user.getId_PERSONNEL(), Toast.LENGTH_SHORT).show();
+
+                    // Redirection
+                    Intent intent = new Intent(ListeRev.this, ListeRev.class);
+                    intent.putExtra("user", user.getId_PERSONNEL());
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(ListeRev.this, "Identifiants incorrects", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<JsonObject>> call, Throwable t) {
+                Toast.makeText(ListeRev.this, "Erreur : " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 

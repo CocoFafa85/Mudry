@@ -1,5 +1,7 @@
 package com.example.myapplication;
 
+import static java.lang.Integer.parseInt;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -91,11 +93,12 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     JsonObject data = response.body();
-                    Garagiste user = new Garagiste(data.getAsInt());
+                    Garagiste user = new Garagiste(parseInt(String.valueOf(data.get("res"))));
                     Toast.makeText(MainActivity.this, "Connexion réussie : " + user.getId_PERSONNEL(), Toast.LENGTH_SHORT).show();
 
                     // Redirection
                     Intent intent = new Intent(MainActivity.this, ListeRev.class);
+                    intent.putExtra("user", user.getId_PERSONNEL());
                     startActivity(intent);
                 } else {
                     Toast.makeText(MainActivity.this, "Identifiants incorrects", Toast.LENGTH_SHORT).show();
