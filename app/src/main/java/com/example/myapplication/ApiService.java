@@ -29,9 +29,6 @@ public interface ApiService {
     @POST("garagiste/auth.php")
     Call<JsonObject> connexion(@Body RequestBody body);
 
-    @GET("garagiste/{identifiant}/{mdp}/")
-    Call<Garagiste> connexionGaragiste(@Path("identifiant") String identifiant, @Path("mdp") String mdp);
-
     @GET("garagiste/{id}/")
     Call<Revision> getGaragiste(@Path("id") int idGaragiste);
 

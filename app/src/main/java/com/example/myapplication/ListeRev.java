@@ -89,29 +89,27 @@ public class ListeRev extends AppCompatActivity {
         searchView = findViewById(R.id.searchView);
         Retrofit retrofit = RetrofitClient.getInstance();
         ApiService apiService = retrofit.create(ApiService.class);
-        JsonObject json = new JsonObject();
-        RequestBody body = RequestBody.create(
-                json.toString(), okhttp3.MediaType.parse("application/json")
-        );
-        apiService.connexion(body).enqueue(new Callback<List<JsonObject>>() {
+
+        apiService.getRevisions().enqueue(new Callback<List<JsonObject>>() {
             @Override
             public void onResponse(Call<List<JsonObject>> call, Response<List<JsonObject>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     List<JsonObject> data = response.body();
                     List<Revision> revisions = new ArrayList<>();
+                    Toast.makeText(ListeRev.this, "test1", Toast.LENGTH_SHORT).show();
                     for (JsonObject obj : data) {
-                        revisions.add(new Revision(obj.get("id_REVISION").getAsInt(), new Date(obj.get("date").getAsString()), obj.get("libelle").getAsString(), obj.get("id_PERSONNEL").getAsInt(), obj.get("id_MODELE").getAsInt(), obj.get("id_AVION").getAsInt()));
-                        Toast.makeText(ListeRev.this, "Connexion réussie : " + revisions.getLast().getLibelle(), Toast.LENGTH_SHORT).show();
+                        revisions.add(new Revision(obj.get("id_revision").getAsInt(), new Date(obj.get("dateRevision").getAsString()), obj.get("libelle").getAsString(), obj.get("id_PERSONNEL").getAsInt(), obj.get("id_MODELE").getAsInt(), obj.get("id_AVION").getAsInt()));
+                        Toast.makeText(ListeRev.this, "trouvée : " + revisions.get(revisions.size()-1).getLibelle(), Toast.LENGTH_SHORT).show();
                     }
 
                     //Toast.makeText(ListeRev.this, "Connexion réussie : " + user.getId_PERSONNEL(), Toast.LENGTH_SHORT).show();
-
+                    Garagiste user = new Garagiste(garagisteId);
                     // Redirection
-                    Intent intent = new Intent(ListeRev.this, ListeRev.class);
+                    Intent intent = new Intent(ListeRev.this, MainActivity.class);
                     intent.putExtra("user", user.getId_PERSONNEL());
                     startActivity(intent);
                 } else {
-                    Toast.makeText(ListeRev.this, "Identifiants incorrects", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ListeRev.this, "Aucune révision trouvé", Toast.LENGTH_SHORT).show();
                 }
             }
 
