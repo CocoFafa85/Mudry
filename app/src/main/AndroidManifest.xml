@@ -21,6 +21,8 @@
         <activity
             android:name=".ListeRev"
             android:exported="true"/>
+
+        <activity android:name=".RevisionDetailActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

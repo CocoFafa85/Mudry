@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     String mdpConnexion;
 //    private boolean isLoggedIn = true;//false;//pas necessaire si changement d'activité
 
-    public boolean onCreateOptionsMenu(Menu menu) {
+    /*public boolean onCreateOptionsMenu(Menu menu) {
 //        if (isLoggedIn) {//pas necessaire si changement d'activité
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_ci, menu);
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
             return true;
         } else
             return super.onOptionsItemSelected(item);
-    }
+    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         Retrofit retrofit = RetrofitClient.getInstance();
         ApiService apiService = retrofit.create(ApiService.class);
 
-        Log.d("API", "identifiant: " + identifiant + " / MDP: " + mdp);
+        //.d("API", "identifiant: " + identifiant + " / MDP: " + mdp);
         JsonObject json = new JsonObject();
         json.addProperty("identifiant", identifiant);
         json.addProperty("mdp", mdp);

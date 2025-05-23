@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class Revision {
     private int id_revision;
-    private Date dateRevision;
+    private String dateRevision;
     private String libelle;
     private int id_MODELE;
     private int id_AVION;
@@ -15,7 +15,7 @@ public class Revision {
     public Revision() {
     }
 
-    public Revision(int id_revision, Date dateRevision, String libelle, int id_MODELE, int id_AVION, int Id_PERSONNEL) {
+    public Revision(int id_revision, String dateRevision, String libelle, int id_MODELE, int id_AVION, int Id_PERSONNEL) {
         this.id_revision = id_revision;
         this.dateRevision = dateRevision;
         this.libelle = libelle;
@@ -32,11 +32,11 @@ public class Revision {
         this.id_revision = id;
     }
 
-    public Date getDateR() {
+    public String getDateR() {
         return dateRevision;
     }
 
-    public void setDateR(Date dateR) {
+    public void setDateR(String dateR) {
         this.dateRevision = dateR;
     }
 

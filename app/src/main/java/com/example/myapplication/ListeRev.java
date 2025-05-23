@@ -20,9 +20,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.JsonObject;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import Entites.Garagiste;
 import Entites.Revision;
@@ -45,24 +50,22 @@ public class ListeRev extends AppCompatActivity {
     }
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection.
+        garagisteId = getIntent().getIntExtra("user", -1);
         if(item.getItemId()== R.id.itm_connecter) {
-            Toast.makeText(this, "Vous avez cliqué sur \n se connecter", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
-
             return true;
         }
         if (item.getItemId()== R.id.itm_ajoutRev) {
-            Toast.makeText(this, "Vous avez cliqué sur \n voir les révisions", Toast.LENGTH_LONG).show();
-
-            Intent intent = new Intent(this, ListeRev.class);
-            intent.putExtra("garagisteId", garagisteId);
+            Intent intent = new Intent(this, CreateRev.class);
+            intent.putExtra("user", garagisteId);
             startActivity(intent);
-
             return true;
         }
         if (item.getItemId()== R.id.itm_listeRev) {
-            Toast.makeText(this, "Vous avez cliqué sur \n la liste des révisions", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(this, ListeRev.class);
+            intent.putExtra("user", garagisteId);
+            startActivity(intent);
             return true;
         } else
             return super.onOptionsItemSelected(item);
@@ -82,11 +85,13 @@ public class ListeRev extends AppCompatActivity {
         });
 
         garagisteId = getIntent().getIntExtra("user", -1);
-        Toast.makeText(this, "ID Garagiste : " + garagisteId, Toast.LENGTH_SHORT).show();
-        recyclerView = findViewById(R.id.rv_liste);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        RecyclerView recyclerView = findViewById(R.id.rv_liste);
+        List<Revision> revisions = new ArrayList<>();
+        RevisionAdapter adapter = new RevisionAdapter(this, revisions);
 
-        searchView = findViewById(R.id.searchView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
+
         Retrofit retrofit = RetrofitClient.getInstance();
         ApiService apiService = retrofit.create(ApiService.class);
 
@@ -95,19 +100,10 @@ public class ListeRev extends AppCompatActivity {
             public void onResponse(Call<List<JsonObject>> call, Response<List<JsonObject>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     List<JsonObject> data = response.body();
-                    List<Revision> revisions = new ArrayList<>();
-                    Toast.makeText(ListeRev.this, "test1", Toast.LENGTH_SHORT).show();
                     for (JsonObject obj : data) {
-                        revisions.add(new Revision(obj.get("id_revision").getAsInt(), new Date(obj.get("dateRevision").getAsString()), obj.get("libelle").getAsString(), obj.get("id_PERSONNEL").getAsInt(), obj.get("id_MODELE").getAsInt(), obj.get("id_AVION").getAsInt()));
-                        Toast.makeText(ListeRev.this, "trouvée : " + revisions.get(revisions.size()-1).getLibelle(), Toast.LENGTH_SHORT).show();
+                        revisions.add(new Revision(obj.get("id_revision").getAsInt(), obj.get("dateRevision").getAsString(), obj.get("libelle").getAsString(), obj.get("id_MODELE").getAsInt(), obj.get("id_AVION").getAsInt(), obj.get("Id_PERSONNEL").getAsInt()));
                     }
-
-                    //Toast.makeText(ListeRev.this, "Connexion réussie : " + user.getId_PERSONNEL(), Toast.LENGTH_SHORT).show();
-                    Garagiste user = new Garagiste(garagisteId);
-                    // Redirection
-                    Intent intent = new Intent(ListeRev.this, MainActivity.class);
-                    intent.putExtra("user", user.getId_PERSONNEL());
-                    startActivity(intent);
+                    adapter.notifyDataSetChanged();
                 } else {
                     Toast.makeText(ListeRev.this, "Aucune révision trouvé", Toast.LENGTH_SHORT).show();
                 }

@@ -1,133 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CreateRev">
-
-    <!-- Titre -->
-    <TextView
-        android:id="@+id/titreCreateR"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ajout d'une révision"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <!-- dateR -->
-    <TextView
-        android:id="@+id/dateR"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="DateR"
-        android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@id/titreCreateR"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"/>
+    android:layout_marginTop="100px"
+    android:orientation="vertical"
+    android:padding="16dp">
 
     <EditText
-        android:id="@+id/dateRInput"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:background="#D7D7D7"
-        android:ems="10"
-        android:inputType="text"
-        app:layout_constraintTop_toBottomOf="@id/dateR"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginHorizontal="16dp"
-        android:hint="26/08/1789"/>
-
-    <!-- libelle -->
-    <TextView
-        android:id="@+id/libelle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Libelle"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"/>
+        android:id="@+id/edit_date"
+        android:layout_width="match_parent"
+        android:layout_height="150px"
+        android:hint="Date (yyyy-MM-dd)" />
 
     <EditText
-        android:id="@+id/libelleInput"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:background="#D7D7D7"
-        android:ems="10"
-        android:inputType="text"
-        app:layout_constraintTop_toBottomOf="@id/libelle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginHorizontal="16dp"
-        android:hint="Ici description de la révision..."/>
+        android:id="@+id/edit_libelle"
+        android:layout_width="match_parent"
+        android:layout_height="150px"
+        android:hint="Libellé" />
 
-    <!-- avion -->
-    <TextView
-        android:id="@+id/avion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="avion"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"/>
+    <Spinner
+        android:id="@+id/spinner_avions"
+        android:layout_width="match_parent"
+        android:layout_height="150px" />
 
-    <EditText
-        android:id="@+id/avionInput"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:background="#D7D7D7"
-        android:ems="10"
-        android:inputType="text"
-        app:layout_constraintTop_toBottomOf="@id/avion"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginHorizontal="16dp"
-        android:hint="code avion"/>
-
-    <!-- Garagiste -->
-    <TextView
-        android:id="@+id/garagiste"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Garagiste"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"/>
-
-    <EditText
-        android:id="@+id/identifiantInput"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:ems="10"
-        android:inputType="date"
-        android:background="#D7D7D7"
-        app:layout_constraintTop_toBottomOf="@id/garagiste"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginHorizontal="16dp"
-        android:hint="identidiant"/>
-
-    <!-- Bouton Valider -->
     <Button
-        android:id="@+id/validerRevision"
-        android:onClick="addPostulant"
-        android:layout_width="wrap_content"
+        android:id="@+id/btn_submit"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="VALIDER"
-        android:backgroundTint="#2D51C5"
-        android:textColor="#FFFFFF"
-        android:padding="10dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="24dp"/>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:text="Ajouter révision" />
+</LinearLayout>

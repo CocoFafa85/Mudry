@@ -12,6 +12,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface ApiService {
@@ -19,17 +20,19 @@ public interface ApiService {
     @GET("revisions/lire.php")
     Call<List<JsonObject>> getRevisions();
 
-    @GET("revision/{id}/")
-    Call<Revision> getRevision(@Path("id") int idRevision);
-
-    @POST("ajoutrevision/")
-    Call<Void> addRevision(@Body Garagiste revision);
+    @Headers({"Authorization: cle"})
+    @POST("revisions/creer.php")
+    Call<JsonObject> addRevision(@Body RequestBody body);
 
     @Headers({"Authorization: cle"})
     @POST("garagiste/auth.php")
     Call<JsonObject> connexion(@Body RequestBody body);
 
-    @GET("garagiste/{id}/")
-    Call<Revision> getGaragiste(@Path("id") int idGaragiste);
+    @Headers({"Authorization: cle"})
+    @POST("avion/lire_un.php")
+    Call<JsonObject> getAvion(@Body RequestBody body);
 
+    @Headers({"Authorization: cle"})
+    @GET("avion/lire.php")
+    Call<List<JsonObject>> getAvions();
 }
